@@ -1,9 +1,11 @@
 import { UserCollection } from "../models/user.model.js";
-import { response } from "../utils/responseHandler.js";
+import {
+  conflictError,
+  errorResponse,
+  successResponse,
+  cookieResponse,
+} from "../utils/responseHandler.js";
 import bcrypt from "bcrypt";
-
-const { conflictError, errorResponse, successResponse, cookieResponse } =
-  response;
 
 // Sign up user controller
 export async function signUpUserController(req, res, next) {

@@ -59,22 +59,10 @@ export const conflictError = (res, messageTitle) => {
 export const cookieResponse = (res, cookieName, data) => {
   res.cookie(cookieName, data, {
     maxAge: 10000000,
-    // httpOnly: true, // If its true cookie is not accessible by client side
+    // httpOnly: true, // If its true cookie is not accessible by client side JS
     domain: "localhost",
     path: "/",
     sameSite: "strict",
     secure: false,
   });
-};
-
-export const response = {
-  successResponse,
-  postResponse,
-  getResponse,
-  updateResponse,
-  deleteResponse,
-  errorResponse,
-  conflictError,
-  notFoundErrorResponse,
-  cookieResponse,
 };
