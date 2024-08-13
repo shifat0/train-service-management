@@ -9,7 +9,7 @@ import { userSchemaValidator } from "../validators/user.validator.js";
 const authRouter = Router();
 
 authRouter
-  .route("/sign-up")
+  .route("/register")
   .post(requestValidator(userSchemaValidator), signUpUserController);
 
 authRouter.route("/login").post(userLoginController);

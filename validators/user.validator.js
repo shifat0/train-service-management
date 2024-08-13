@@ -9,5 +9,7 @@ export const userSchemaValidator = Joi.object({
     .max(18)
     .regex(/^[a-zA-Z0-9]/, "password must contain a uppercase letter, a number")
     .required("password is required!"),
-  confirmPassword: Joi.ref("password"),
+  confirmPassword: Joi.string().required().valid(Joi.ref("password")).messages({
+    "any.only": "Password and confirmPassword do not match",
+  }),
 });
