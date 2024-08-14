@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
 
-const stopSchema = new mongoose.Schema({
-  station: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "station",
+const stopSchema = new mongoose.Schema(
+  {
+    station: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "station",
+    },
+    arrivalTime: String,
+    departureTime: String,
   },
-  arrivalTime: String,
-  departureTime: String,
-});
+  { _id: false }
+);
 
 const trainSchema = new mongoose.Schema(
   {
