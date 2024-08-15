@@ -1,17 +1,14 @@
 import jwt from "jsonwebtoken";
+import { errorResponse } from "../utils/responseHandler.js";
 
-export default function (req, res, next) {
+export default function authorizedUser(req, res, next) {
   let token = req.header("Authorization");
   if (!token)
-    return res
-      .status(401)
-      .json({ message: "Access denied! No token provided" });
+    return errorResponse(res, "Access denied! No token provided", 401);
 
   const hasBearer = token.startsWith("Bearer ");
   if (!hasBearer)
-    return res
-      .status(401)
-      .json({ message: "Access denied! No token provided" });
+    return errorResponse(res, "Access denied! No token provided", 401);
 
   try {
     const decodedToken = jwt.verify(
@@ -21,7 +18,7 @@ export default function (req, res, next) {
 
     req.user = decodedToken;
     next();
-  } catch (err) {
-    return res.status(400).json({ message: "Invalid token" });
+  } catch (error) {
+    next(error);
   }
 }

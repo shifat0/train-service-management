@@ -19,7 +19,7 @@ export async function addFundsController(req, res, next) {
     const user = await UserCollection.findById(userId);
     if (!user) return notFoundErrorResponse(res, "User");
 
-    // Define the update operation
+    // Update operation
     const update = {
       $inc: { balance: type === "credit" ? amount : -amount },
       $push: {
