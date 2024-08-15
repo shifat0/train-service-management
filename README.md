@@ -1,4 +1,4 @@
-# Book Store API
+# Train Service Management
 
 This is a Train Service Management System built with Node.js, Express and MongoDB.
 
