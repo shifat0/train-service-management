@@ -7,6 +7,7 @@ This is a Train Service Management System built with Node.js, Express and MongoD
 - [Installation](#installation)
 - [Project Setup](#project-setup)
 - [Run the server](#run-the-server)
+- [Postman Collection](#postman-collection)
 
 ## Installation
 
@@ -39,4 +40,12 @@ npm install
 npm start
 ```
 
-Now open your terminal to see if the server is running and databse is connected. Also you can go to http://localhost:500 to see if server is running or not.
+Now open your terminal to see if the server is running and databse is connected. Also you can go to http://localhost:5000 to see if server is running or not.
+
+## Postman Collection
+
+Postman collection is given with the project. Import that collection to yout postman and test api endpoints.
+
+add environments to your postman:
+Variable: local_dev, Value: http://localhost:5000/api/v1
+and accessToken Variable will be automatically added after login

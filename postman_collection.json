@@ -1,0 +1,474 @@
+{
+	"info": {
+		"_postman_id": "eb5c3851-ce68-4632-8548-8ad9f58e1036",
+		"name": "Train Service Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30164386"
+	},
+	"item": [
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "user registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Shoaib\",\r\n    \"lastName\": \"Akhter Shifat\",\r\n    \"email\": \"shoaib.akhter.shifat@gmail.com\",\r\n    \"password\": \"12456Ab\",\r\n    \"confirmPassword\": \"12456Ab\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{local_dev}}/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "user login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Get all cookies\r",
+									"const cookies = pm.cookies;\r",
+									"\r",
+									"// Store cookie values in environment variables\r",
+									"cookies.each((cookie) => {\r",
+									"  pm.environment.set(cookie.name, cookie.value);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"shoaib.akhter.shifat@gmail.com\",\r\n    \"password\": \"12456Ab\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{local_dev}}/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Station Management",
+			"item": [
+				{
+					"name": "create station",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Joydebpur Railway Station\",\r\n    \"location\": \"Tangail\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{local_dev}}/station"
+					},
+					"response": []
+				},
+				{
+					"name": "get stations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{local_dev}}/station"
+					},
+					"response": []
+				},
+				{
+					"name": "get station by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_dev}}/station/:id",
+							"host": [
+								"{{local_dev}}"
+							],
+							"path": [
+								"station",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66bba3d8580293387b88ef06"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update station",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"location\": \"Dhaka\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_dev}}/station/:id",
+							"host": [
+								"{{local_dev}}"
+							],
+							"path": [
+								"station",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66bba3d8580293387b88ef06"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete station",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local_dev}}/station/:id",
+							"host": [
+								"{{local_dev}}"
+							],
+							"path": [
+								"station",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66bba7eb8f1d758a56e755b2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Train Management",
+			"item": [
+				{
+					"name": "create train",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Modhumoti Express\",\r\n    \"stops\": [\r\n        {\r\n            \"station\": \"66bba3d8580293387b88ef06\",\r\n            \"arrivalTime\": \"10:00 PM\",\r\n            \"departureTime\": \"10:15 PM\"\r\n        },\r\n        {\r\n            \"station\": \"66bba7d78f1d758a56e755ad\",\r\n            \"arrivalTime\": \"5:00 PM\",\r\n            \"departureTime\": \"5:15 PM\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{local_dev}}/train"
+					},
+					"response": []
+				},
+				{
+					"name": "get trains",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{local_dev}}/train"
+					},
+					"response": []
+				},
+				{
+					"name": "get train by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_dev}}/train/:id",
+							"host": [
+								"{{local_dev}}"
+							],
+							"path": [
+								"train",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66bcda7c63cecde895eab1b4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update train",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sirajganj Express\",\r\n    \"stops\": [\r\n        {\r\n            \"station\": \"66bba7d78f1d758a56e755ad\",\r\n            \"arrivalTime\": \"7:30 PM\",\r\n            \"departureTime\": \"7:35 PM\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_dev}}/train/:id",
+							"host": [
+								"{{local_dev}}"
+							],
+							"path": [
+								"train",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66bcda7c63cecde895eab1b4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete train",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local_dev}}/train/:id",
+							"host": [
+								"{{local_dev}}"
+							],
+							"path": [
+								"train",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66bcd792f974319fd9965763"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete train stop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local_dev}}/train/:id/stops/:stationId",
+							"host": [
+								"{{local_dev}}"
+							],
+							"path": [
+								"train",
+								":id",
+								"stops",
+								":stationId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "66bcda7c63cecde895eab1b4"
+								},
+								{
+									"key": "stationId",
+									"value": "66bba7d78f1d758a56e755ad"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallet Managment",
+			"item": [
+				{
+					"name": "add fund",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"66bb9891d8b9d723c7917db6\",\r\n    \"amount\": 400,\r\n    \"type\": \"credit\" // \"debit\" or \"credit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{local_dev}}/wallet/add-fund"
+					},
+					"response": []
+				},
+				{
+					"name": "get balance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_dev}}/wallet/:userId",
+							"host": [
+								"{{local_dev}}"
+							],
+							"path": [
+								"wallet",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ticket Management",
+			"item": [
+				{
+					"name": "purchase ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"66bb9891d8b9d723c7917db6\",\r\n    \"trainId\": \"66bcda7c63cecde895eab1b4\",\r\n    \"startStop\": \"66bba3d8580293387b88ef06\",\r\n    \"endStop\": \"66bba7d78f1d758a56e755ad\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{local_dev}}/ticket/purchase"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
