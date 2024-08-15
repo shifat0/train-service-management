@@ -3,6 +3,7 @@ import { UserCollection } from "../models/user.model.js";
 import WalletCollection from "../models/wallet.model.js";
 import {
   errorResponse,
+  getResponse,
   notFoundErrorResponse,
   successResponse,
 } from "../utils/responseHandler.js";
@@ -61,6 +62,25 @@ export async function addFundsController(req, res, next) {
     };
 
     successResponse(res, "Transaction successfull", payload, 201);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getWalletBalanceController(req, res, next) {
+  try {
+    const userId = req.params.userId;
+
+    if (!ObjectId.isValid(userId))
+      return errorResponse(res, "Invalid userId", 400);
+
+    const wallet = await WalletCollection.findOne(
+      { userId },
+      { balance: 1, _id: 0 }
+    );
+    if (!wallet) return notFoundErrorResponse(res, "User wallet");
+
+    return getResponse(res, wallet, "Wallet Balance");
   } catch (error) {
     next(error);
   }
